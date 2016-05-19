@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+Header set X-Robots-Tag "noindex, nofollow"
+
+# block visitors referred from semalt.com
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} semalt\.com [NC]
+RewriteCond %{HTTP_REFERER} buttons\-for\-website\.com [NC]
+RewriteRule .* – [F]
+# End semalt block
+# block referer spam buttons for website
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} buttons\-for\-website\.com
+RewriteRule ^.* - [F,L]
+# End buttons for website block
